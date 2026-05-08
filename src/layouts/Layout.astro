@@ -1,6 +1,7 @@
 ---
-import { Font } from "astro:assets";
-import "../styles/global.css";
+import { Font } from 'astro:assets';
+import '../styles/global.css';
+import Navbar from '../components/sections/layout/Navbar.astro';
 ---
 
 <!doctype html>
@@ -13,8 +14,14 @@ import "../styles/global.css";
 		<meta name="generator" content={Astro.generator} />
 		<title>Morgan's Portfolio</title>
 		<Font cssVariable="--font-inter" preload />
+		<script is:inline>
+			const stored = localStorage.getItem('theme');
+			const preferred = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+			document.documentElement.classList.toggle('dark', (stored ?? preferred) === 'dark');
+		</script>
 	</head>
 	<body>
+		<Navbar />
 		<slot />
 	</body>
 </html>
